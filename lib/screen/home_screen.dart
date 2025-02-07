@@ -14,26 +14,33 @@ class _HomeScreenState extends State<HomeScreen> {
   List<String> scanHistory = [];
 
   bool isScanning = false;
+  @override
+  void initState() {
+    super.initState();
+  }
 
   void _launchQRScanner() {
     if (isScanning) return; // Ngăn mở nhiều lần
 
-    isScanning = true;
+    isScanning = true; // Đặt trạng thái đang quét
     Navigator.of(context)
         .push(
-          MaterialPageRoute(
-            builder: (context) => QRScannerScreen(
-              onQRScanned: (String scannedData) {
-                if (!scanHistory.contains(scannedData)) {
-                  setState(() {
-                    scanHistory.insert(0, scannedData);
-                  });
-                }
-              },
-            ),
-          ),
-        )
-        .then((_) => isScanning = false); // Reset trạng thái khi quay lại
+      MaterialPageRoute(
+        builder: (context) => QRScannerScreen(
+          onQRScanned: (String scannedData) {
+            if (!scanHistory.contains(scannedData)) {
+              setState(() {
+                scanHistory.insert(0, scannedData);
+              });
+            }
+          },
+        ),
+      ),
+    )
+        .then((_) {
+      // Reset trạng thái khi quay lại
+      isScanning = false;
+    });
   }
 
   void _openHistoryScreen() {
