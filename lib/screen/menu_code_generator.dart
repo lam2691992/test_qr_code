@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:path/path.dart';
-
+import 'package:qr_scanner/screen/text_generator_screen.dart';
+import 'package:qr_scanner/screen/web_generator_screen.dart';
 import 'barcode_generator_screen.dart';
 
 class CodeGeneratorScreen extends StatelessWidget {
@@ -9,6 +9,7 @@ class CodeGeneratorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Danh sách các mục, không thay đổi thứ tự hay nhóm theo hàng
     final List<Map<String, dynamic>> categories = [
       {"title": "Barcode", "isHeader": true},
       {"title": "Barcode", "icon": Icons.qr_code, "color": Colors.purple},
@@ -40,12 +41,13 @@ class CodeGeneratorScreen extends StatelessWidget {
       },
       {"title": "Cloud", "isHeader": true},
       {"title": "Drive", "icon": 'asset/drive.svg'},
+      // {"title": "iCloud", "icon": 'asset/icloud.png'},
       {"title": "Dropbox", "icon": 'asset/dropbox.svg'},
     ];
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(90), // Tăng chiều cao AppBar
+        preferredSize: const Size.fromHeight(90),
         child: AppBar(
           backgroundColor: Colors.black,
           automaticallyImplyLeading: false,
@@ -99,170 +101,120 @@ class CodeGeneratorScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: ListView(
-          children: [
-            // Vòng lặp danh sách các danh mục
-            ...categories.map((category) {
-              if (category['isHeader'] == true) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text(
-                    category['title'],
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                );
-              } else if (category['title'] == "Text") {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(child: buildCategoryCard(context, category)),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: buildCategoryCard(context, {
-                          "title": "Website",
-                          "icon": Icons.language,
-                          "color": Colors.green,
-                        }),
-                      ),
-                    ],
-                  ),
-                );
-              } else if (category['title'] == "Wifi") {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(child: buildCategoryCard(context, category)),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: buildCategoryCard(context, {
-                          "title": "Location",
-                          "icon": Icons.location_on,
-                          "color": Colors.blue,
-                        }),
-                      ),
-                    ],
-                  ),
-                );
-              } else if (category['title'] == "Facebook") {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(child: buildCategoryCard(context, category)),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: buildCategoryCard(context, {
-                          "title": "Instagram",
-                          "icon": 'asset/instagram.png',
-                          "color": Colors.pinkAccent,
-                        }),
-                      ),
-                    ],
-                  ),
-                );
-              } else if (category['title'] == "Phone") {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(child: buildCategoryCard(context, category)),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: buildCategoryCard(context, {
-                          "title": "Message",
-                          "icon": Icons.message,
-                          "color": Colors.deepPurple,
-                        }),
-                      ),
-                    ],
-                  ),
-                );
-              } else if (category['title'] == "Pinterest") {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(child: buildCategoryCard(context, category)),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: buildCategoryCard(context, {
-                          "title": "WhatsApp",
-                          "icon": 'asset/whatsapp.svg',
-                          "color": Colors.red,
-                        }),
-                      ),
-                    ],
-                  ),
-                );
-              } else if (category['title'] == "Youtube") {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(child: buildCategoryCard(context, category)),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: buildCategoryCard(context, {
-                          "title": "Spotify",
-                          "icon": 'asset/spotify.svg',
-                        }),
-                      ),
-                    ],
-                  ),
-                );
-              } else if (category['title'] == "Drive") {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(child: buildCategoryCard(context, category)),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: buildCategoryCard(context, {
-                          "title": "iCloud",
-                          "icon": 'asset/icloud.png',
-                          "color": Colors.red,
-                        }),
-                      ),
-                    ],
-                  ),
-                );
-              } else if (category['title'] == "Soundcloud") {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(child: buildCategoryCard(context, category)),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: buildCategoryCard(context, {
-                          "title": "Music",
-                          "icon": Icons.music_note_rounded,
-                          "color": Colors.pink
-                        }),
-                      ),
-                    ],
-                  ),
-                );
-              } else {
-                return buildCategoryCard(context, category);
-              }
-            }),
-          ],
+          children: categories.map<Widget>((category) {
+            if (category['isHeader'] == true) {
+              return _buildHeader(category['title']);
+            } else if (category['title'] == "Text") {
+              // Nhóm "Text" và "Website" thành 1 hàng
+              return _buildRow(
+                context,
+                category,
+                {
+                  "title": "Website",
+                  "icon": Icons.language,
+                  "color": Colors.green,
+                },
+              );
+            } else if (category['title'] == "Wifi") {
+              return _buildRow(
+                context,
+                category,
+                {
+                  "title": "Location",
+                  "icon": Icons.location_on,
+                  "color": Colors.blue,
+                },
+              );
+            } else if (category['title'] == "Facebook") {
+              return _buildRow(
+                context,
+                category,
+                {
+                  "title": "Instagram",
+                  "icon": 'asset/instagram.png',
+                },
+              );
+            } else if (category['title'] == "Phone") {
+              return _buildRow(
+                context,
+                category,
+                {
+                  "title": "Message",
+                  "icon": Icons.message,
+                  "color": Colors.deepPurple,
+                },
+              );
+            } else if (category['title'] == "Pinterest") {
+              return _buildRow(
+                context,
+                category,
+                {
+                  "title": "WhatsApp",
+                  "icon": 'asset/whatsapp.svg',
+                },
+              );
+            } else if (category['title'] == "Youtube") {
+              return _buildRow(
+                context,
+                category,
+                {
+                  "title": "Spotify",
+                  "icon": 'asset/spotify.svg',
+                },
+              );
+            } else if (category['title'] == "Drive") {
+              return _buildRow(
+                context,
+                category,
+                {
+                  "title": "iCloud",
+                  "icon": 'asset/icloud.png',
+                },
+              );
+            } else if (category['title'] == "Soundcloud") {
+              return _buildRow(
+                context,
+                category,
+                {
+                  "title": "Music",
+                  "icon": Icons.music_note_rounded,
+                  "color": Colors.pink,
+                },
+              );
+            } else {
+              return buildCategoryCard(context, category);
+            }
+          }).toList(),
         ),
+      ),
+    );
+  }
+
+  Widget _buildHeader(String title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Text(
+        title,
+        style: const TextStyle(
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRow(BuildContext context, Map<String, dynamic> leftItem,
+      Map<String, dynamic> rightItem) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(child: buildCategoryCard(context, leftItem)),
+          const SizedBox(width: 10),
+          Expanded(child: buildCategoryCard(context, rightItem)),
+        ],
       ),
     );
   }
@@ -273,11 +225,9 @@ class CodeGeneratorScreen extends StatelessWidget {
         category['title'] == "Barcode" ||
         category['title'] == "Dropbox" ||
         category['title'] == "App Store";
-    double cardWidth = isSmallCard ? 0.5 : 1.0;
+    double cardWidthFactor = isSmallCard ? 0.5 : 1.0;
 
     Widget iconWidget;
-
-    // Kiểm tra kiểu dữ liệu của icon
     if (category['icon'] is String) {
       if (category['icon'].toString().endsWith('.svg')) {
         iconWidget = SvgPicture.asset(
@@ -303,24 +253,65 @@ class CodeGeneratorScreen extends StatelessWidget {
       iconWidget = const SizedBox();
     }
 
-    Widget card = GestureDetector(
+    Widget cardWidget = GestureDetector(
       onTap: () {
+        // Điều hướng theo tiêu đề của mục
         if (category['title'] == "Barcode") {
           Navigator.push(
             context,
             PageRouteBuilder(
               transitionDuration: const Duration(milliseconds: 500),
               pageBuilder: (context, animation, secondaryAnimation) =>
-                  const BarcodeScreen(), // Thay đổi màn hình cần chuyển nếu cần
+                  const BarcodeScreen(),
               transitionsBuilder:
                   (context, animation, secondaryAnimation, child) {
-                const begin = Offset(1.0, 0.0); // Bắt đầu từ bên phải
-                const end = Offset.zero; // Kết thúc tại vị trí gốc
-                const curve = Curves.easeInOut; // Hiệu ứng chuyển mượt
-
+                const begin = Offset(1.0, 0.0);
+                const end = Offset.zero;
+                const curve = Curves.easeInOut;
                 final tween = Tween(begin: begin, end: end)
                     .chain(CurveTween(curve: curve));
-
+                return SlideTransition(
+                  position: animation.drive(tween),
+                  child: child,
+                );
+              },
+            ),
+          );
+        } else if (category['title'] == "Text") {
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              transitionDuration: const Duration(milliseconds: 500),
+              pageBuilder: (context, animation, secondaryAnimation) =>
+                  const TextScreen(),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                const begin = Offset(1.0, 0.0);
+                const end = Offset.zero;
+                const curve = Curves.easeInOut;
+                final tween = Tween(begin: begin, end: end)
+                    .chain(CurveTween(curve: curve));
+                return SlideTransition(
+                  position: animation.drive(tween),
+                  child: child,
+                );
+              },
+            ),
+          );
+        } else if (category['title'] == "Website") {
+          Navigator.push(
+            context,
+            PageRouteBuilder(
+              transitionDuration: const Duration(milliseconds: 500),
+              pageBuilder: (context, animation, secondaryAnimation) =>
+                  const WebScreen(),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) {
+                const begin = Offset(1.0, 0.0);
+                const end = Offset.zero;
+                const curve = Curves.easeInOut;
+                final tween = Tween(begin: begin, end: end)
+                    .chain(CurveTween(curve: curve));
                 return SlideTransition(
                   position: animation.drive(tween),
                   child: child,
@@ -331,7 +322,7 @@ class CodeGeneratorScreen extends StatelessWidget {
         }
       },
       child: FractionallySizedBox(
-        widthFactor: cardWidth,
+        widthFactor: cardWidthFactor,
         child: Card(
           color: Colors.grey[900],
           shape: RoundedRectangleBorder(
@@ -361,9 +352,9 @@ class CodeGeneratorScreen extends StatelessWidget {
     if (isSmallCard) {
       return Align(
         alignment: Alignment.centerLeft,
-        child: card,
+        child: cardWidget,
       );
     }
-    return card;
+    return cardWidget;
   }
 }

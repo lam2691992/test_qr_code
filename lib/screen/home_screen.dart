@@ -122,7 +122,8 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               TextButton(
                 onPressed: _openHistoryScreen,
-                child: const Text("History", style: TextStyle(fontSize: 18)),
+                child: const Text("History",
+                    style: TextStyle(fontSize: 18, color: Colors.black)),
               ),
               const SizedBox(
                 width: 20,
@@ -150,7 +151,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   );
                 },
-                icon: const Icon(Icons.menu),
+                icon: const Icon(
+                  Icons.menu,
+                  color: Colors.black,
+                ),
               ),
             ],
           ),

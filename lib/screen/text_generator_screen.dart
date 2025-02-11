@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class BarcodeScreen extends StatefulWidget {
-  const BarcodeScreen({super.key});
+class TextScreen extends StatefulWidget {
+  const TextScreen({super.key});
 
   @override
-  _BarcodeScreenState createState() => _BarcodeScreenState();
+  _TextScreenState createState() => _TextScreenState();
 }
 
-class _BarcodeScreenState extends State<BarcodeScreen> {
+class _TextScreenState extends State<TextScreen> {
   final TextEditingController _controller = TextEditingController();
   int _currentLength = 0;
 
@@ -67,7 +67,7 @@ class _BarcodeScreenState extends State<BarcodeScreen> {
                   child: Padding(
                     padding: EdgeInsets.only(top: 40),
                     child: Text(
-                      "Barcode",
+                      "Text",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
@@ -87,27 +87,11 @@ class _BarcodeScreenState extends State<BarcodeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text("Barcode Type",
+            const Text("Enter Text",
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 18,
                     fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-              decoration: BoxDecoration(
-                color: Colors.grey[900],
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Select barcode type",
-                      style: TextStyle(color: Colors.white54)),
-                  Icon(Icons.arrow_drop_down, color: Colors.yellow),
-                ],
-              ),
-            ),
             const SizedBox(height: 20),
             Stack(
               children: [
